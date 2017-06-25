@@ -1,11 +1,11 @@
 function createTodoItem(title) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.className = 'todo-item-checkbox';
+    checkbox.className = 'checkbox';
 
     const label = document.createElement('label');
     label.innerText = title;
-    label.className = 'todo-item-title';
+    label.className = 'title';
 
     const editInput = document.createElement('input');
     editInput.type = 'text';
@@ -52,6 +52,35 @@ function addTodoItem(event) {
     todoList.appendChild(todoItem);
 
     addInput.value = ''; // clear input after add todoItem
+}
+
+function toggleTodoItem() {
+    const listItem = this.parentNode;
+    listItem.classList.toggle('completed');
+
+}
+
+function editTodoItem() {
+    const listItem = this.parentNode;
+    const title = listItem.querySelector('.title');
+    const editInput = listItem.querySelector('.textfield');
+    const isEditing = listItem.classList.contains('editing');
+
+    if (isEditing) {
+        title.innerText = editInput.value;
+        this.innerText = 'Изменить';
+    } else {
+        editInput.value = title.innerText;
+        this.innerText = 'Сохранить';
+    }
+
+    listItem.classList.toggle('editing');
+
+}
+
+function deleteTodoItem() {
+    const listItem = this.parentNode;
+    todoList.removeChild(listItem);
 }
 
 const todoForm = document.getElementById('todo-form');
